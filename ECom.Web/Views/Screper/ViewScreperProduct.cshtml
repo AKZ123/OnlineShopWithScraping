@@ -1,0 +1,73 @@
+﻿@model ECom.Web.ViewModels.Product1
+@{
+    var imageURL = !string.IsNullOrEmpty(Model.ImageURl) ? Model.ImageURl : "/Content/image/system/NoImag.PNG";
+
+}
+
+<div class="wrap-flexslider">
+    <div class="inner">
+        <div class="flexslider style-1 has-relative">
+            <ul>
+                <li data-thumb="@imageURL">
+                    <img class="img-thumbnail img-fluid" id="productImage" src="@imageURL" />
+                    
+                    <div class="flat-icon style-1">
+                        <a href="@imageURL" class="zoom-popup"><span class="fa fa-search-plus"></span></a>
+                    </div>
+                </li>
+            </ul>
+        </div><!-- /.flexslider -->
+    </div>
+</div>
+<div class="product-detail">
+    <div class="inner">
+        <div class="content-detail">
+            <h2 class="product-title">
+                @Model.Name
+            </h2>
+            @*<div class="flat-star style-1">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-half-o"></i>
+                    <i class="fa fa-star-half-o"></i>
+                    <span>(1)</span>
+                </div>*@
+            <p>
+                @Model.Description
+            </p>
+            <div class="price">
+                <ins>
+                    <span class="amount">
+                        @*  $ , ৳->à§³  *@ 
+                        @Model.Price
+                    </span>
+                </ins>
+            </div>
+            <div class="product-quantity">
+                @*<div class="quantity">
+                    <input type="text" value="1" name="quantity-number" class="quantity-number">
+                    <span class="inc quantity-button">+</span>
+                    <span class="dec quantity-button">-</span>
+                </div>*@
+                <div class="add-to-cart">
+                    @*<a href="#">ADD TO CART</a>*@
+                    <button id="cancelBtn" type="button" class="btn btn-primary">Cancel</button>
+                </div>
+                @*<div class="box-like">
+                    <a href="#" class="like"><i class="fa fa-heart-o"></i></a>
+                </div>*@
+            </div>
+            <div class="product-categories">
+                <span>Categories: </span><a href="#">.</a>
+            </div>
+        </div>
+    </div>
+</div><!-- /.product-detail -->
+
+<script>
+    $("#cancelBtn").click(function () {
+        $("#ViewScreperSiteProduct").html("");
+        focusAction1("ScreapingSiteSelect");
+    });
+</script>

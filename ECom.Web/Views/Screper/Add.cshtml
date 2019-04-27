@@ -1,0 +1,98 @@
+﻿@model ECom.Web.ViewModels.ScreperProductViewModel
+@{
+    ViewBag.Title = "Add a Compare Link";
+
+    var imageURL = !string.IsNullOrEmpty(Model.ImageURL) ? Model.ImageURL : "/Content/image/system/NoImag.PNG";
+}
+<section class="flat-row main-shop shop-detail">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h2>View Existing Product</h2>
+                <div class="wrap-flexslider">
+                    <div class="inner">
+                        <div class="flexslider style-1 has-relative">
+                            <div class="thumb">
+                                <img class="img-thumbnail img-fluid" id="productImage" src="@imageURL" />
+                            </div>
+                            <h2 class="product-title">
+                                @Model.Name
+                            </h2>
+                            <p>
+                                @Model.Description
+                            </p>
+                            <div class="price">
+                                <ins>
+                                    <span class="amount">
+                                        $ @Model.Price
+                                    </span>
+                                </ins>
+                            </div>
+                        </div><!-- /.flexslider -->
+                    </div>
+                </div>  
+            </div><!-- /.col-md-6 -->
+            <div class="col-md-6">
+                <h2>Add Compare WebSite URL</h2>
+                <form id="SaveOtherSiteURL">
+                    <input type="hidden" name="ProductID" value="@Model.ProductID" />
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <label>Compare with</label>
+                                <select class="form-control" name="ScreperName">
+                                    <option  selected>Select .......</option>
+                                    <option value="ebay" >ebay</option>
+                                    <option value="Daraz" >Daraz</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Sile URL</label>
+                                <input class="form-control" name="ScreperURL" />
+                            </div>
+                            <button id="saveBtn" type="button" class="btn btn-primary">Save</button>
+                            <button id="cancelBtn" type="button" class="btn btn-primary">Cancel</button>
+                        </div>
+                        
+                    </div>
+                </form>
+            </div>
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+</section>
+
+
+<script>
+    $("#saveBtn").click(function () {
+        //if ($("#SaveOtherSiteURL").valid()) {
+			$.ajax({
+				type: 'POST',
+				url: '@Url.Action("Add", "Screper")',
+			    data: $("#SaveOtherSiteURL").serialize()
+			})
+			.done(function (response) {
+				$("#tableContiner").html(response);
+				$("#actionContainer").html("");
+				focusAction("tableContiner");
+			})
+			.fail(function (XMLHttpRequest, textStatus, errorThrown) {
+				alert("FAIL");
+			});
+		//}
+		//else {
+		//	swal({
+		//		title: "Warning",
+		//		text: "Please enter all valid data in fields.",
+		//		icon: "warning",
+		//		buttons: true,
+		//		dangerMode: true,
+		//	});
+		//}
+	});
+
+	$("#cancelBtn").click(function () {
+		$("#actionContainer").html("");
+		focusAction("tableContiner");
+	});
+</script>
+
