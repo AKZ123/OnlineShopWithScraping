@@ -1,0 +1,4 @@
+Name      mail                password
+
+GU1      gu1@gmail.com        GU1@asdfg12345
+AU1      au1@gmail.com        AU1@asdfg12345
